@@ -21,6 +21,7 @@ if __name__ == "__main__":  # Equivalent to int main() {} in C++.
             # How will you conver this to a list, given that
             # the user will always enter a comma separated list of branch codes?
             # eg>   2,5
+            branchcodes = list(map(int, branchcodes.split(",")))
             position= input("Position: ")
             salary = input("Salary: ")
             # Create a new Engineer with given details.
@@ -37,6 +38,7 @@ if __name__ == "__main__":  # Equivalent to int main() {} in C++.
             ID = input("ID:")
             city = input("City:")
             branchcodes = input("Branch(es):")
+            branchcodes = list(map(int, branchcodes.split(",")))
             position= input("Position: ")
             salary = input("Salary: ")
             salesman= Salesman(name,age,ID,city,branchcodes,position,salary)
