@@ -14,8 +14,8 @@ if __name__ == "__main__":  # Equivalent to int main() {} in C++.
 
         if last_input == 1:
             name = input("Name:")
-            age= input("Age")
-            ID = input("ID:")
+            age= int(input("Age"))
+            ID = int(input("ID:"))
             city = input("City:")
             branchcodes = input("Branch(es):")
             # How will you conver this to a list, given that
@@ -67,12 +67,12 @@ if __name__ == "__main__":  # Equivalent to int main() {} in C++.
                 ## ???? what comes here??
                 # print(f"Branches: " + ???? )
                 branches=found_employee.branches
-                
-                branch_names=branchmap.get(branches)
-                names=[]
-                for name in branch_names:
-                    names=name.name
-                print(f"Branches: " +names)
+                for branch_code in branches:
+                    for branch_code in branchmap:
+                        branch_names.append(branchmap[branch_code].get("name"))
+                    
+                    
+                print(f"Branches: " +branch_names)
                 
                 print(f"Salary: {found_employee.salary}")
 
@@ -85,8 +85,14 @@ if __name__ == "__main__":  # Equivalent to int main() {} in C++.
             new_code=int(input("New code: "))
             found_employee=None
             employee_roster= engineer_roster + sales_roster
-            found_employee=employee_roster.get(ID=ID)
+            for employee in employee_roster:
+                if employee.ID == ID:
+                    found_employee = employee
+                    break
+            if found_employee is None:
+                print("No such employee")
             found_employee.migrate_branch(new_code)
+            print("Branch changed successfully!")
             
             #### NO IF ELSE ZONE ENDS #################################################
 
@@ -95,8 +101,14 @@ if __name__ == "__main__":  # Equivalent to int main() {} in C++.
             position=str(input("Enter position to promote: "))
             found_employee=None
             employee_roster= engineer_roster + sales_roster
-            found_employee=employee_roster.get(ID=ID)
+            for employee in employee_roster:
+                if employee.ID == ID:
+                    found_employee = employee
+                    break
+            if found_employee is None:
+                print("No such employee")
             found_employee.promote(position)
+            print("Employee promoted successfully!")
             
             # promote employee to next position
 
@@ -105,14 +117,25 @@ if __name__ == "__main__":  # Equivalent to int main() {} in C++.
             increment=float(input("Enter increment: "))
             found_employee=None
             employee_roster= engineer_roster + sales_roster
-            found_employee=employee_roster.get(ID=ID)
+            for employee in employee_roster:
+                if employee.ID == ID:
+                    found_employee = employee
+                    break
+            if found_employee is None:
+                print("No such employee")
             found_employee.increment(increment)
+            print("Incremented successfully")
             # Increment salary of employee.
         
         elif last_input == 7:
             ID = int(input("Enter Employee ID to find superior: "))
             found_employee=None
-            found_employee=sales_roster.get(ID=ID)
+            for employee in employee_roster:
+                if employee.ID == ID:
+                    found_employee = employee
+                    break
+            if found_employee is None:
+                print("No such employee")
             print(f"Superior: {found_employee.find_superior()}")
             # Print superior of the sales employee.
         
@@ -120,7 +143,12 @@ if __name__ == "__main__":  # Equivalent to int main() {} in C++.
             ID_E = int(input("Enter Employee ID to add superior: "))
             ID_S = int(input("Enter Employee ID of superior: "))
             found_employee=None
-            found_employee=sales_roster.get(ID=ID_E)
+            for employee in sales_roster:
+                if employee.ID == ID_E:
+                    found_employee = employee
+                    break
+            if found_employee is None:
+                print("No such employee")
             found_employee.add_superior(ID_S)
             # Add superior of a sales employee
 

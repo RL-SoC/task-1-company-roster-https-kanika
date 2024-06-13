@@ -32,7 +32,7 @@ class Employee:
         self.city = city
         self.branches = branchcodes
         if salary is not None: self.salary = salary
-        else: self.salary = 10_000 
+        else: self.salary = 10000 
     
     def change_city(self, new_city:str) -> bool:            #-> this is an annotation for what the function will return
         # Change the city 
@@ -130,7 +130,7 @@ class Salesman(Employee):
     superior : int # EMPLOYEE ID of the superior this guy reports to
 
     def __init__(self, name, age, ID, city,branchcodes, position="Rep", salary=None, superior= None): # Complete all this! Add arguments
-        super.__init__(name,age,ID,city, branchcodes,salary)
+        super().__init__(name,age,ID,city, branchcodes,salary)
         assert(position== "Rep" or position== "Manager" or position== "Head"), f"{position} is an invalid position"
         self.position=position
         self.superior= None
@@ -164,14 +164,22 @@ class Salesman(Employee):
         # Return the employee ID and name of the superior
         # Report a tuple of None, None if no superior.
         ID=self.superior
-        superior=sales_roster.get(ID=ID)
+        for employee in sales_roster:
+            if employee.ID==ID:
+                superior= employee
+                break
         s=[ID, superior.name]
         return s
 
     def add_superior(self,superiorID) -> bool:
         # Add superior of immediately higher rank.
         # If superior doesn't exist return false,
-        super= sales_roster["ID":superiorID]
+        super=None
+        for employee in sales_roster:
+            if employee.ID==superiorID:
+                super=employee
+                break
+        
         if self.position== "Rep":
             if super.position=="Manager":
                 self.superior= superiorID
@@ -186,12 +194,11 @@ class Salesman(Employee):
 
     def migrate_branch(self, new_code: int) -> bool:
         # This should simply add a branch to the list; even different cities are fine
-        if new_code in range(6):
+        if new_code in branchmap:
             self.branches.append(new_code)
             return True
         else:
             return False
-
     
 
 
