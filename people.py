@@ -28,7 +28,7 @@ class Employee:
                  branchcodes, salary = None):
         self.name = name
         self.age = age 
-        self.ID = ID
+        self.ID = int(ID)
         self.city = city
         self.branches = branchcodes
         if salary is not None: self.salary = salary
@@ -49,7 +49,7 @@ class Employee:
         # Change old branch to new if it is in the same city, else return false.
         if len(self.branches) == 1:
             if self.city == branchmap[new_code].get("city"):
-                self.branches= list[new_code]
+                self.branches= [new_code]
                 return True
             else:
                 return False
@@ -129,11 +129,12 @@ class Salesman(Employee):
     # An extra member variable!
     superior : int # EMPLOYEE ID of the superior this guy reports to
 
-    def __init__(self, name, age, ID, city,branchcodes, position="Rep", salary=None, superior= None): # Complete all this! Add arguments
+    def __init__(self, name, age, ID, city,branchcodes, position="Rep", salary=None): # Complete all this! Add arguments
         super().__init__(name,age,ID,city, branchcodes,salary)
         assert(position== "Rep" or position== "Manager" or position== "Head"), f"{position} is an invalid position"
         self.position=position
         self.superior= None
+        print("Salesman created")
         #superior code
     
     # def promote 
@@ -164,10 +165,13 @@ class Salesman(Employee):
         # Return the employee ID and name of the superior
         # Report a tuple of None, None if no superior.
         ID=self.superior
+        superior=None
         for employee in sales_roster:
             if employee.ID==ID:
                 superior= employee
                 break
+        if superior is None:
+            return (None, None)
         s=[ID, superior.name]
         return s
 
