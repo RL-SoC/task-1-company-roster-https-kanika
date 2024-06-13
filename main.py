@@ -72,7 +72,7 @@ if __name__ == "__main__":  # Equivalent to int main() {} in C++.
                         branch_names.append(branchmap[branch_code].get("name"))
                     
                     
-                print(f"Branches: " +branch_names)
+                print(f"Branches: {branch_names}")
                 
                 print(f"Salary: {found_employee.salary}")
 
